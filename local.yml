@@ -65,3 +65,16 @@
     - name: Install Chronograf
       apt:
         deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.3.9.0_armhf.deb
+    - name: Import the Mosquitto GPG key into apt
+      apt_key:
+        url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+        state: present
+    - name: Add Mosquitto deb repository
+      apt_repository:
+        repo: 'deb http://repo.mosquitto.org/debian stretch main'
+        state: present
+    - name: Install Mosquitto
+      apt:
+        name: mosquitto
+        state: installed
+        update_cache: yes
