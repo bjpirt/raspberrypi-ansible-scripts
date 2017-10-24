@@ -40,10 +40,10 @@
         owner: root
         group: root
         mode: 0644
-    - name: install hostapd.conf.bootstrap
+    - name: install hostapd.conf
       copy:
-        src: files/etc/hostapd/hostapd.conf.bootstrap
-        dest: /etc/hostapd/hostapd.conf.bootstrap
+        src: files/etc/hostapd/hostapd.conf
+        dest: /etc/hostapd/hostapd.conf
         owner: root
         group: root
         mode: 0644
