@@ -56,6 +56,21 @@
         mode: 0755
     - name: enable uap0 startup script
       shell: update-rc.d create-uap0 defaults
+    - name: Install git
+      apt:
+        name: git
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install vim
+      apt:
+        name: vim
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install tmux
+      apt:
+        name: tmux
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install InfluxDB
       apt:
         deb: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.6_armhf.deb
@@ -73,8 +88,19 @@
       apt_repository:
         repo: 'deb http://repo.mosquitto.org/debian stretch main'
         state: present
+    - name: Install libssl
+      apt:
+        deb: http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_armhf.deb
+    - name: Install libwebsockets
+      apt:
+        deb: http://ftp.nz.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets3_1.2.2-1_armhf.deb
     - name: Install Mosquitto
       apt:
         name: mosquitto
+        state: installed
+        update_cache: yes
+    - name: Install Mosquitto Clients
+      apt:
+        name: mosquitto-clients
         state: installed
         update_cache: yes
