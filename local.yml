@@ -1,0 +1,67 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: tycoch
+  sudo: yes
+  gather_facts: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: safe
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Update repositories cache and install dnsmasq
+      apt:
+        name: dnsmasq
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: install dnsmasq.conf
+      copy:
+        src: files/etc/dnsmasq.conf
+        dest: /etc/dnsmasq.conf
+        owner: root
+        group: staff
+        mode: 0644
+    - name: Update repositories cache and install hostapd
+      apt:
+        name: hostapd
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: install interfaces
+      copy:
+        src: files/etc/network/interfaces
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: 0644
+    - name: install hosts
+      copy:
+        src: files/etc/hosts
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: 0644
+    - name: install hostapd.conf.bootstrap
+      copy:
+        src: files/etc/hostapd/hostapd.conf.bootstrap
+        dest: /etc/hostapd/hostapd.conf.bootstrap
+        owner: root
+        group: root
+        mode: 0644
+    - name: install uap0 startup script
+      copy:
+        src: files/etc/init.d/create-uap0
+        dest: /etc/init.d/create-uap0
+        owner: root
+        group: root
+        mode: 0755
+    - name: enable uap0 startup script
+      shell: update-rc.d create-uap0 defaults
+    - name: Install InfluxDB
+      apt:
+        deb: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.6_armhf.deb
+    - name: Install Telegraf
+      apt:
+        deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.2-1_armhf.deb
+    - name: Install Chronograf
+      apt:
+        deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.3.9.0_armhf.deb
