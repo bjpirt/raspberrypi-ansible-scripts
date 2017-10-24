@@ -88,8 +88,9 @@
         repo: 'https://github.com/bjpirt/tycoch-software.git'
         dest: /usr/local/tycoch/software
         update: yes
-    - pip:
-        name: minimalmodbus
+    - name: Install pymodbus
+      pip:
+        name: pymodbus
     - name: Install InfluxDB
       apt:
         deb: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.6_armhf.deb
