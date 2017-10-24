@@ -9,6 +9,13 @@
         upgrade: safe
         update_cache: yes
         cache_valid_time: 3600
+    - name: install update-ansible
+      copy:
+        src: files/usr/local/bin/update-ansible
+        dest: /usr/local/bin/
+        owner: root
+        group: staff
+        mode: 0755
     - name: Update repositories cache and install dnsmasq
       apt:
         name: dnsmasq
