@@ -78,6 +78,11 @@
         name: tmux
         update_cache: yes
         cache_valid_time: 3600
+    - name: Install pip
+      apt:
+        name: python-pip
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install the tycoch software
       git:
         repo: 'https://github.com/bjpirt/tycoch-software.git'
