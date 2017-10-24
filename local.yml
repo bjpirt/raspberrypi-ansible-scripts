@@ -89,6 +89,13 @@
     - name: Install Telegraf
       apt:
         deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.2-1_armhf.deb
+    - name: install telegraf.conf
+      copy:
+        src: files/etc/telegraf.conf
+        dest: /etc/telegraf.conf
+        owner: root
+        group: root
+        mode: 0644
     - name: Install Chronograf
       apt:
         deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.3.9.0_armhf.deb
@@ -116,3 +123,10 @@
         name: mosquitto-clients
         state: installed
         update_cache: yes
+    - name: install mosquitto.conf
+      copy:
+        src: files/etc/mosquitto/mosquitto.conf
+        dest: /etc/mosquitto/mosquitto.conf
+        owner: root
+        group: root
+        mode: 0644
