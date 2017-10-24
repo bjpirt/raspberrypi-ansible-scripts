@@ -138,5 +138,8 @@
         owner: root
         group: root
         mode: 0644
-    - name: enable mosquitto autostart
-      shell: update-rc.d mosquitto defaults
+    - name: enable mosquitto autostart with systemd
+      systemd:
+        name: mosquitto
+        enabled: yes
+        masked: no
