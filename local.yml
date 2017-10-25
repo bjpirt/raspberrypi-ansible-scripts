@@ -148,8 +148,10 @@
         name: bjpirt
         groups: root,sudo
         generate_ssh_key: yes
+        password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
         ssh_key_bits: 2048
         ssh_key_file: .ssh/id_rsa
+        shell: /bin/bash
     - name: Set authorized key for bjpirt
       authorized_key:
         user: bjpirt
