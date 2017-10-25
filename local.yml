@@ -143,3 +143,15 @@
         name: mosquitto
         enabled: yes
         masked: no
+    - name: Add bjpirt user
+      user:
+        name: bjpirt
+        groups: root,sudo
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+    - name: Set authorized key for bjpirt
+      authorized_key:
+        user: bjpirt
+        state: present
+        key: "{{ lookup('file', 'files/id_rsa.bjpirt.pub') }}"
