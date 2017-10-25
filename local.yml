@@ -61,6 +61,13 @@
         owner: root
         group: root
         mode: 0755
+    - name: install udev rules for USB serial
+      copy:
+        src: files/etc/udev/rules.d/99-usb-serial.rules
+        dest: /etc/udev/rules.d/99-usb-serial.rules
+        owner: root
+        group: root
+        mode: 0644
     - name: enable uap0 startup script
       shell: update-rc.d create-uap0 defaults
     - name: Install git
