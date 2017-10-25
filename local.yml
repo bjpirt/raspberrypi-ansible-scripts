@@ -161,3 +161,13 @@
         user: bjpirt
         state: present
         key: "{{ lookup('file', 'files/id_rsa.bjpirt.pub') }}"
+    - name: Download dotfiles
+      become: yes
+      become_user: bjpirt
+      git:
+        repo: 'https://github.com/bjpirt/dotfiles.git'
+        dest: /home/bjpirt/dotfiles
+    - name: Install dotfiles
+      become: yes
+      become_user: bjpirt
+      shell: cd /home/bjpirt/dotfiles && ./install
