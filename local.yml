@@ -106,8 +106,8 @@
         deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.2-1_armhf.deb
     - name: install telegraf.conf
       copy:
-        src: files/etc/telegraf.conf
-        dest: /etc/telegraf.conf
+        src: files/etc/telegraf/telegraf.conf
+        dest: /etc/telegraf/telegraf.conf
         owner: root
         group: root
         mode: 0644
