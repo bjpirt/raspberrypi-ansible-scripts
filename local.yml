@@ -104,6 +104,11 @@
         owner: root
         group: root
         mode: 0644
+    - name: Add telegraf user to dialout group
+      user:
+        name: telegraf
+        groups: dialout
+        append: yes
     - name: Install Chronograf
       apt:
         deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.3.9.0_armhf.deb
@@ -146,7 +151,8 @@
     - name: Add bjpirt user
       user:
         name: bjpirt
-        groups: root,sudo
+        groups: root,sudo,dialout
+        append: yes
         generate_ssh_key: yes
         password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
         ssh_key_bits: 2048
