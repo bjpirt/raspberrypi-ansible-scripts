@@ -152,6 +152,10 @@
         ssh_key_bits: 2048
         ssh_key_file: .ssh/id_rsa
         shell: /bin/bash
+    - name: Change password for pi user
+      user:
+        name: pi
+        password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
     - name: Set authorized key for bjpirt
       authorized_key:
         user: bjpirt
