@@ -54,13 +54,6 @@
         owner: root
         group: root
         mode: 0644
-    - name: install uap0 startup script
-      copy:
-        src: files/etc/init.d/create-uap0
-        dest: /etc/init.d/create-uap0
-        owner: root
-        group: root
-        mode: 0755
     - name: install udev rules for USB serial
       copy:
         src: files/etc/udev/rules.d/99-usb-serial.rules
@@ -68,8 +61,6 @@
         owner: root
         group: root
         mode: 0644
-    - name: enable uap0 startup script
-      shell: update-rc.d create-uap0 defaults
     - name: Install git
       apt:
         name: git
@@ -95,6 +86,11 @@
         name: i2c-tools
         update_cache: yes
         cache_valid_time: 3600
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install the tycoch software
       git:
         repo: 'https://github.com/bjpirt/tycoch-software.git'
@@ -103,12 +99,20 @@
     - name: Install pymodbus
       pip:
         name: pymodbus
+    - name: Add influx deb repository
+      apt_repository:
+        repo: 'deb https://repos.influxdata.com/debian stretch stable'
+        state: present
     - name: Install InfluxDB
       apt:
-        deb: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.6_armhf.deb
+        name: influxdb
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install Telegraf
       apt:
-        deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.2-1_armhf.deb
+        name: telegraf
+        update_cache: yes
+        cache_valid_time: 3600
     - name: install telegraf.conf
       copy:
         src: files/etc/telegraf/telegraf.conf
@@ -123,7 +127,9 @@
         append: yes
     - name: Install Chronograf
       apt:
-        deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.3.9.0_armhf.deb
+        name: chronograf
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Import the Mosquitto GPG key into apt
       apt_key:
         url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
