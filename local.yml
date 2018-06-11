@@ -99,6 +99,10 @@
     - name: Install pymodbus
       pip:
         name: pymodbus
+    - name: Import the influx key into apt
+      apt_key:
+        url: https://repos.influxdata.com/influxdb.key
+        state: present
     - name: Add influx deb repository
       apt_repository:
         repo: 'deb https://repos.influxdata.com/debian stretch stable'
