@@ -143,12 +143,6 @@
       apt_repository:
         repo: 'deb http://repo.mosquitto.org/debian stretch main'
         state: present
-    - name: Install libssl
-      apt:
-        deb: http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_armhf.deb
-    - name: Install libwebsockets
-      apt:
-        deb: http://ftp.nz.debian.org/debian/pool/main/libw/libwebsockets/libwebsockets3_1.2.2-1_armhf.deb
     - name: Install Mosquitto
       apt:
         name: mosquitto
