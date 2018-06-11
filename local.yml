@@ -107,6 +107,7 @@
       apt_repository:
         repo: 'deb https://repos.influxdata.com/debian stretch stable'
         state: present
+        update_cache: yes
     - name: Install InfluxDB
       apt:
         name: influxdb
