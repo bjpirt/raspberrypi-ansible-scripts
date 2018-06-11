@@ -61,10 +61,21 @@
         owner: root
         group: root
         mode: 0644
+
     - name: Enable I2C
       command: "raspi-config nonint do_i2c 0"
       args:
         creates: /sys/class/i2c-adapter/i2c-1
+
+    - name: add ds1307 to /boot/config.txt
+      lineinfile: dest=/boot/config.txt state=present line="dtoverlay=i2c-rtc,ds1307"
+      sudo: yes
+
+    - name: Remove fake-hwclock
+      apt:
+        name: fake-hwclock
+        state: absent
+
     - name: Install git
       apt:
         name: git
