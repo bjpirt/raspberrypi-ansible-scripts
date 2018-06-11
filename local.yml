@@ -61,13 +61,10 @@
         owner: root
         group: root
         mode: 0644
-    - name: Check that i2c has been enabled
-      stat:
-        path: /sys/class/i2c-adapter/i2c-1
-      register: stat_result
     - name: Enable I2C
-      shell: "raspi-config nonint do_i2c 0"
-      when: stat_result.stat.exists == False
+      command: "raspi-config nonint do_i2c 0"
+      args:
+        creates: /sys/class/i2c-adapter/i2c-1
     - name: Install git
       apt:
         name: git
