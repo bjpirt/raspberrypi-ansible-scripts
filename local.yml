@@ -16,6 +16,13 @@
         owner: root
         group: staff
         mode: 0755
+    - name: install setup-readonly.sh
+      copy:
+        src: files/usr/local/bin/setup-readonly.sh
+        dest: /usr/local/bin/
+        owner: root
+        group: staff
+        mode: 0755
     - name: Update repositories cache and install dnsmasq
       apt:
         name: dnsmasq
