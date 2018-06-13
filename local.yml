@@ -30,7 +30,7 @@
         state: directory
 
     - name: add /data to fstab
-      lineinfile: dest=/etc/fstab state=present line="UUID=a52a29ab-14ff-46d5-a2f1-a47a3157d8f9        /data   ext4    defaults        0 2"
+      lineinfile: dest=/etc/fstab state=present line="UUID=c6e2121f-8020-4ac7-a200-1bb8c4021c67        /data   ext4    defaults        0 2"
 
     - name: Update repositories cache and install dnsmasq
       apt:
@@ -144,6 +144,13 @@
         name: influxdb
         update_cache: yes
         cache_valid_time: 3600
+    - name: install influxdb.conf
+      copy:
+        src: files/etc/influxdb/influxdb.conf
+        dest: /etc/influxdb/influxdb.conf
+        owner: root
+        group: root
+        mode: 0644
     - name: Install Telegraf
       apt:
         name: telegraf
