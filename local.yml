@@ -24,6 +24,14 @@
         group: staff
         mode: 0755
 
+    - name: install setup-influx.sh
+      copy:
+        src: files/usr/local/bin/setup-influx.sh
+        dest: /usr/local/bin/
+        owner: root
+        group: staff
+        mode: 0755
+
     - name: Create /data directory
       file:
         path: /data
