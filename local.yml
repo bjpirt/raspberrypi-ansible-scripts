@@ -30,7 +30,7 @@
         state: directory
 
     - name: add /data to fstab
-      lineinfile: dest=/etc/fstab state=present line="UUID=a52a29ab-14ff-46d5-a2f1-a47a3157d8f9        /data   ext3    defaults        1 2"
+      lineinfile: dest=/etc/fstab state=present line="UUID=a52a29ab-14ff-46d5-a2f1-a47a3157d8f9        /data   ext4    defaults        0 2"
 
     - name: Update repositories cache and install dnsmasq
       apt:
