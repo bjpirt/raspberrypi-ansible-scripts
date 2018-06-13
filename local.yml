@@ -27,6 +27,22 @@
         group: staff
         mode: 0755
 
+    - name: install set-readonly
+      copy:
+        src: files/usr/local/bin/set-readonly
+        dest: /usr/local/bin/
+        owner: root
+        group: staff
+        mode: 0755
+
+    - name: install set-readwrite
+      copy:
+        src: files/usr/local/bin/set-readwrite
+        dest: /usr/local/bin/
+        owner: root
+        group: staff
+        mode: 0755
+
     - name: install setup-influx.sh
       copy:
         src: files/usr/local/bin/setup-influx.sh
