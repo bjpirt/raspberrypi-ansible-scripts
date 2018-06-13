@@ -4,11 +4,13 @@
   sudo: yes
   gather_facts: yes
   tasks:
+
     - name: Update and upgrade apt packages
       apt:
         upgrade: safe
         update_cache: yes
         cache_valid_time: 3600
+
     - name: install update-ansible
       copy:
         src: files/usr/local/bin/update-ansible
@@ -16,6 +18,7 @@
         owner: root
         group: staff
         mode: 0755
+
     - name: install setup-readonly.sh
       copy:
         src: files/usr/local/bin/setup-readonly.sh
@@ -45,6 +48,7 @@
         name: dnsmasq
         update_cache: yes
         cache_valid_time: 3600
+
     - name: install dnsmasq.conf
       copy:
         src: files/etc/dnsmasq.conf
@@ -52,11 +56,13 @@
         owner: root
         group: staff
         mode: 0644
+
     - name: Update repositories cache and install hostapd
       apt:
         name: hostapd
         update_cache: yes
         cache_valid_time: 3600
+
     - name: install interfaces
       copy:
         src: files/etc/network/interfaces
@@ -64,6 +70,7 @@
         owner: root
         group: root
         mode: 0644
+
     - name: install hosts
       copy:
         src: files/etc/hosts
@@ -71,6 +78,7 @@
         owner: root
         group: root
         mode: 0644
+
     - name: install hostapd.conf
       copy:
         src: files/etc/hostapd/hostapd.conf
@@ -78,6 +86,7 @@
         owner: root
         group: root
         mode: 0644
+
     - name: install udev rules for USB serial
       copy:
         src: files/etc/udev/rules.d/99-usb-serial.rules
@@ -93,7 +102,6 @@
 
     - name: add ds1307 to /boot/config.txt
       lineinfile: dest=/boot/config.txt state=present line="dtoverlay=i2c-rtc,ds1307"
-      sudo: yes
 
     - name: Remove fake-hwclock
       apt:
@@ -105,53 +113,64 @@
         name: git
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install vim
       apt:
         name: vim
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install tmux
       apt:
         name: tmux
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install pip
       apt:
         name: python-pip
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install i2c-tools
       apt:
         name: i2c-tools
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install apt-transport-https
       apt:
         name: apt-transport-https
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Install the tycoch software
       git:
         repo: 'https://github.com/bjpirt/tycoch-software.git'
         dest: /usr/local/tycoch/software
         update: yes
+
     - name: Install pymodbus
       pip:
         name: pymodbus
+
     - name: Import the influx key into apt
       apt_key:
         url: https://repos.influxdata.com/influxdb.key
         state: present
+
     - name: Add influx deb repository
       apt_repository:
         repo: 'deb https://repos.influxdata.com/debian stretch stable'
         state: present
         update_cache: yes
+
     - name: Install InfluxDB
       apt:
         name: influxdb
         update_cache: yes
         cache_valid_time: 3600
+
     - name: install influxdb.conf
       copy:
         src: files/etc/influxdb/influxdb.conf
@@ -159,11 +178,13 @@
         owner: root
         group: root
         mode: 0644
+
     - name: Install Telegraf
       apt:
         name: telegraf
         update_cache: yes
         cache_valid_time: 3600
+
     - name: install telegraf.conf
       copy:
         src: files/etc/telegraf/telegraf.conf
@@ -171,34 +192,41 @@
         owner: root
         group: root
         mode: 0644
+
     - name: Add telegraf user to dialout group
       user:
         name: telegraf
         groups: dialout
         append: yes
+
     - name: Install Chronograf
       apt:
         name: chronograf
         update_cache: yes
         cache_valid_time: 3600
+
     - name: Import the Mosquitto GPG key into apt
       apt_key:
         url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
         state: present
+
     - name: Add Mosquitto deb repository
       apt_repository:
         repo: 'deb http://repo.mosquitto.org/debian stretch main'
         state: present
+
     - name: Install Mosquitto
       apt:
         name: mosquitto
         state: installed
         update_cache: yes
+
     - name: Install Mosquitto Clients
       apt:
         name: mosquitto-clients
         state: installed
         update_cache: yes
+
     - name: install mosquitto.conf
       copy:
         src: files/etc/mosquitto/mosquitto.conf
@@ -206,11 +234,13 @@
         owner: root
         group: root
         mode: 0644
+
     - name: enable mosquitto autostart with systemd
       systemd:
         name: mosquitto
         enabled: yes
         masked: no
+
     - name: Add bjpirt user
       user:
         name: bjpirt
@@ -221,21 +251,25 @@
         ssh_key_bits: 2048
         ssh_key_file: .ssh/id_rsa
         shell: /bin/bash
+
     - name: Change password for pi user
       user:
         name: pi
         password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
+
     - name: Set authorized key for bjpirt
       authorized_key:
         user: bjpirt
         state: present
         key: "{{ lookup('file', 'files/id_rsa.bjpirt.pub') }}"
+
     - name: Download dotfiles
       become: yes
       become_user: bjpirt
       git:
         repo: 'https://github.com/bjpirt/dotfiles.git'
         dest: /home/bjpirt/dotfiles
+
     - name: Install dotfiles
       become: yes
       become_user: bjpirt
