@@ -25,7 +25,8 @@
         mode: 0755
 
     - name: Create /data directory
-      file: path=/data
+      file:
+        path: /data
         state: directory
 
     - name: add /data to fstab
