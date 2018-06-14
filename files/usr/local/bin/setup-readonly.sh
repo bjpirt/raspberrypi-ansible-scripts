@@ -272,6 +272,10 @@ rm -rf /var/lib/lightdm
 rm -rf /var/cache/lightdm
 ln -s /tmp /var/lib/lightdm
 ln -s /tmp /var/cache/lightdm
+
+# Make sudo work
+rm -rf /var/lib/sudo
+ln -s /tmp /var/lib/sudo
  
 # Make SSH work
 replaceAppend /etc/ssh/sshd_config "^.*UsePrivilegeSeparation.*$" "UsePrivilegeSeparation no"
