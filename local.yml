@@ -271,9 +271,17 @@
 
     - name: Install Nginx
       apt:
-        name: nginx
+        name: nginx-full
         state: installed
         update_cache: yes
+
+    - name: install nginx conf
+      copy:
+        src: files/etc/nginx/sites-enabled/default
+        dest: /etc/nginx/sites-enabled/default
+        owner: root
+        group: root
+        mode: 0644
 
     - name: Add bjpirt user
       user:
