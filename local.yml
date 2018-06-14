@@ -230,7 +230,7 @@
       lineinfile:
         dest: /lib/systemd/system/chronograf.service
         regexp: '^Environment="BOLT_PATH=/var/lib/chronograf/chronograf-v1.db"$'
-        line: 'Environment="BOLT_PATH=/data/chronograf-v1.db"'
+        line: 'Environment="BOLT_PATH=/data/chronograf/chronograf-v1.db"'
         backrefs: yes
 
     - name: Import the Mosquitto GPG key into apt

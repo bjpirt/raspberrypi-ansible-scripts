@@ -9,6 +9,10 @@ fi
 mkdir /data/influxdb
 chown -R influxdb:influxdb /data/influxdb
 
+mkdir /data/chronograf
+chown -R chronograf:chronograf /data/chronograf
+
 systemctl restart influxdb
+systemctl restart chronograf
 
 influx -import /usr/local/tycoch/software/influx-setup/influx-setup.txt
