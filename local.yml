@@ -124,6 +124,11 @@
         name: fake-hwclock
         state: absent
 
+    - name: Patch hwclock-set
+      patch:
+        src: files/hwclock.patch
+        dest: /lib/udev/hwclock-set
+
     - name: Install git
       apt:
         name: git
