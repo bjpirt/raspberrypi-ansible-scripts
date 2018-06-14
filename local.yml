@@ -269,6 +269,12 @@
         enabled: yes
         masked: no
 
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: installed
+        update_cache: yes
+
     - name: Add bjpirt user
       user:
         name: bjpirt
