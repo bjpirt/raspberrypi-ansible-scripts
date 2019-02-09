@@ -20,4 +20,8 @@ server {
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "Upgrade";
   }
+
+  location /influx {
+    proxy_pass http://localhost:8888;
+  }
 }
