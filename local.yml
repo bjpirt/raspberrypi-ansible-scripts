@@ -43,6 +43,9 @@
         group: staff
         mode: 0755
 
+    - name: enable uart in /boot/config.txt
+      lineinfile: dest=/boot/config.txt state=present line="enable_uart=1"
+
     - name: install setup-influx.sh
       copy:
         src: files/usr/local/bin/setup-influx.sh
@@ -115,6 +118,14 @@
       copy:
         src: files/etc/udev/rules.d/99-usb-serial.rules
         dest: /etc/udev/rules.d/99-usb-serial.rules
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: install udev rules for WLAN
+      copy:
+        src: files/etc/udev/rules.d/72-static-wlan.rules
+        dest: /etc/udev/rules.d/72-static-wlan.rules
         owner: root
         group: root
         mode: 0644
@@ -287,6 +298,22 @@
       copy:
         src: files/etc/nginx/sites-enabled/default
         dest: /etc/nginx/sites-enabled/default
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: install nginx start file
+      copy:
+        src: files/usr/local/bin/start-nginx.sh
+        dest: /usr/local/bin/start-nginx.sh
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: install nginx service file
+      copy:
+        src: files/lib/systemd/system/nginx.service
+        dest: /lib/systemd/system/nginx.service
         owner: root
         group: root
         mode: 0644
