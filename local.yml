@@ -62,70 +62,10 @@
     - name: add /data to fstab
       lineinfile: dest=/etc/fstab state=present line="UUID=c6e2121f-8020-4ac7-a200-1bb8c4021c67        /data   ext4    defaults        0 2"
 
-    - name: Update repositories cache and install dnsmasq
-      apt:
-        name: dnsmasq
-        update_cache: yes
-        cache_valid_time: 3600
-
-    - name: install dnsmasq.conf
-      copy:
-        src: files/etc/dnsmasq.conf
-        dest: /etc/dnsmasq.conf
-        owner: root
-        group: staff
-        mode: 0644
-
-    - name: Update repositories cache and install hostapd
-      apt:
-        name: hostapd
-        update_cache: yes
-        cache_valid_time: 3600
-
-    - name: install interfaces
-      copy:
-        src: files/etc/network/interfaces
-        dest: /etc/network/interfaces
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: install hosts
-      copy:
-        src: files/etc/hosts
-        dest: /etc/hosts
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: install hostapd0.conf
-      copy:
-        src: files/etc/hostapd/hostapd0.conf
-        dest: /etc/hostapd/hostapd0.conf
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: install hostapd1.conf
-      copy:
-        src: files/etc/hostapd/hostapd1.conf
-        dest: /etc/hostapd/hostapd1.conf
-        owner: root
-        group: root
-        mode: 0644
-
     - name: install udev rules for USB serial
       copy:
         src: files/etc/udev/rules.d/99-usb-serial.rules
         dest: /etc/udev/rules.d/99-usb-serial.rules
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: install udev rules for WLAN
-      copy:
-        src: files/etc/udev/rules.d/72-static-wlan.rules
-        dest: /etc/udev/rules.d/72-static-wlan.rules
         owner: root
         group: root
         mode: 0644
@@ -288,35 +228,11 @@
         enabled: yes
         masked: no
 
-    - name: Install Nginx
+    - name: Install lighttpd
       apt:
-        name: nginx-full
+        name: lighttpd
         state: installed
         update_cache: yes
-
-    - name: install nginx conf
-      copy:
-        src: files/etc/nginx/sites-enabled/default
-        dest: /etc/nginx/sites-enabled/default
-        owner: root
-        group: root
-        mode: 0644
-
-    - name: install nginx start file
-      copy:
-        src: files/usr/local/bin/start-nginx.sh
-        dest: /usr/local/bin/start-nginx.sh
-        owner: root
-        group: root
-        mode: 0755
-
-    - name: install nginx service file
-      copy:
-        src: files/lib/systemd/system/nginx.service
-        dest: /lib/systemd/system/nginx.service
-        owner: root
-        group: root
-        mode: 0644
 
     - name: Add bjpirt user
       user:
