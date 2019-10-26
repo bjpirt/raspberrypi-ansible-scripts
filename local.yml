@@ -234,6 +234,14 @@
         state: installed
         update_cache: yes
 
+    - name: install lighttpd.conf
+      copy:
+        src: files/etc/lighttpd/lighttpd.conf
+        dest: /etc/lighttpd/lighttpd.conf
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Add bjpirt user
       user:
         name: bjpirt
