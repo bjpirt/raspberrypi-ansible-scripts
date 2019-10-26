@@ -59,8 +59,16 @@
         path: /data
         state: directory
 
+    - name: Create /data-ramdisk directory
+      file:
+        path: /data-ramdisk
+        state: directory
+
+    - name: add /data-ramdisk to fstab
+      lineinfile: dest=/etc/fstab state=present line="tmpfs       /data-ramdisk tmpfs   nodev,nosuid,noexec,nodiratime,size=256M   0 0"
+
     - name: add /data to fstab
-      lineinfile: dest=/etc/fstab state=present line="UUID=c6e2121f-8020-4ac7-a200-1bb8c4021c67        /data   ext4    defaults        0 2"
+      lineinfile: dest=/etc/fstab state=present line="/dev/mmcblk0p3  /data           ext4    defaults,noatime  0       0"
 
     - name: install udev rules for USB serial
       copy:
@@ -141,7 +149,7 @@
 
     - name: Add influx deb repository
       apt_repository:
-        repo: 'deb https://repos.influxdata.com/debian stretch stable'
+        repo: 'deb https://repos.influxdata.com/debian buster stable'
         state: present
         update_cache: yes
 
@@ -157,6 +165,14 @@
         dest: /etc/influxdb/influxdb.conf
         owner: root
         group: root
+        mode: 0644
+
+    - name: Create /data/influx directory
+      file:
+        path: /data/influx
+        state: directory
+        owner: influxdb
+        group: influxdb
         mode: 0644
 
     - name: Install Telegraf
@@ -199,7 +215,7 @@
 
     - name: Add Mosquitto deb repository
       apt_repository:
-        repo: 'deb http://repo.mosquitto.org/debian stretch main'
+        repo: 'deb http://repo.mosquitto.org/debian buster main'
         state: present
 
     - name: Install Mosquitto
