@@ -65,7 +65,7 @@
         state: directory
 
     - name: add /data-ramdisk to fstab
-      lineinfile: dest=/etc/fstab state=present line="tmpfs       /data-ramdisk tmpfs   nodev,nosuid,noexec,nodiratime,size=256M   0 0"
+      lineinfile: dest=/etc/fstab state=present line="tmpfs       /data-ramdisk tmpfs   nodev,nosuid,noexec,nodiratime,size=128M   0 0"
 
     - name: add /data to fstab
       lineinfile: dest=/etc/fstab state=present line="/dev/mmcblk0p3  /data           ext4    defaults,noatime  0       0"
@@ -169,10 +169,34 @@
 
     - name: Create /data/influx directory
       file:
-        path: /data/influx
+        path: /data/influxdb
         state: directory
         owner: influxdb
         group: influxdb
+        mode: 0644
+
+    - name: install influx-ramdisk.sh
+      copy:
+        src: files/usr/local/bin/influx-ramdisk.sh
+        dest: /usr/local/bin/influx-ramdisk.sh
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create influx systemd directory
+      file:
+        path: /etc/systemd/system/influxdb.service.d
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: install ramdisk.conf
+      copy:
+        src: files/etc/systemd/system/influxdb.service.d/ramdisk.conf
+        dest: /etc/systemd/system/influxdb.service.d/ramdisk.conf
+        owner: root
+        group: root
         mode: 0644
 
     - name: Install Telegraf
