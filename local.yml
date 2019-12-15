@@ -236,6 +236,14 @@
         line: 'Environment="BOLT_PATH=/data/chronograf/chronograf-v1.db"'
         backrefs: yes
 
+    - name: Create chronograf directory
+      file:
+        path: /data/chronograf
+        state: directory
+        owner: chronograf
+        group: chronograf
+        mode: 0644
+
     - name: Import the Mosquitto GPG key into apt
       apt_key:
         url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
