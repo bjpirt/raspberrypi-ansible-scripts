@@ -278,7 +278,7 @@
         dest: /etc/systemd/system/heating-settings.service
         owner: root
         group: root
-        mode: 0644
+        mode: 0755
 
     - name: enable heating-settings autostart with systemd
       systemd:
