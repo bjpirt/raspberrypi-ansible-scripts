@@ -255,7 +255,7 @@
     - name: Install Mosquitto Clients
       apt:
         name: mosquitto-clients
-        state: installed
+        state: present
         update_cache: yes
 
     - name: install mosquitto.conf
