@@ -142,6 +142,10 @@
       pip:
         name: pymodbus
 
+    - name: Install paho-mqtt
+      pip:
+        name: paho-mqtt
+
     - name: Import the influx key into apt
       apt_key:
         url: https://repos.influxdata.com/influxdb.key
@@ -265,6 +269,20 @@
     - name: enable mosquitto autostart with systemd
       systemd:
         name: mosquitto
+        enabled: yes
+        masked: no
+
+    - name: install systemd service for heating-settings
+      copy:
+        src: files/etc/systemd/system/heating-settings.service
+        dest: /etc/systemd/system/heating-settings.service
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: enable heating-settings autostart with systemd
+      systemd:
+        name: heating-settings
         enabled: yes
         masked: no
 

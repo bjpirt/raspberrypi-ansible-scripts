@@ -1,0 +1,14 @@
+[Unit]
+Description=Heating Settings
+After=network.target
+
+[Service]
+ExecStart=/usr/local/tycoch/software/bin/heating-settings
+WorkingDirectory=/tmp
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=bjpirt
+
+[Install]
+WantedBy=multi-user.target
