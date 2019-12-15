@@ -286,6 +286,11 @@
         enabled: yes
         masked: no
 
+    - name: Run the data sync script every minute
+      cron:
+        name: "sync data"
+        job: "python /usr/local/tycoch/software/bin/sync-data.py"
+
     - name: Install lighttpd
       apt:
         name: lighttpd
