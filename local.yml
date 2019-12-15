@@ -27,17 +27,17 @@
         group: staff
         mode: 0755
 
-    - name: install set-readonly
+    - name: install set-ro
       copy:
-        src: files/usr/local/bin/set-readonly
+        src: files/usr/local/bin/set-ro
         dest: /usr/local/bin/
         owner: root
         group: staff
         mode: 0755
 
-    - name: install set-readwrite
+    - name: install set-rw
       copy:
-        src: files/usr/local/bin/set-readwrite
+        src: files/usr/local/bin/set-rw
         dest: /usr/local/bin/
         owner: root
         group: staff
