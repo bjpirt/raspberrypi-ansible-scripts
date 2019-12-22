@@ -297,7 +297,7 @@
     - name: Run the data sync script every minute
       cron:
         name: "sync data"
-        job: "python /usr/local/tycoch/software/bin/sync-data.py"
+        job: "python /usr/local/tycoch/software/bin/sync-data.py /etc/datasync.json >> /var/log/datasync.log 2>>datasync.error.log"
 
     - name: Install lighttpd
       apt:
