@@ -146,6 +146,10 @@
       pip:
         name: paho-mqtt
 
+    - name: Install requests
+      pip:
+        name: requests
+
     - name: Import the influx key into apt
       apt_key:
         url: https://repos.influxdata.com/influxdb.key
