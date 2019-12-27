@@ -306,7 +306,7 @@
     - name: Install lighttpd
       apt:
         name: lighttpd
-        state: installed
+        state: present
         update_cache: yes
 
     - name: install lighttpd.conf
