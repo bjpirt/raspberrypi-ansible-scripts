@@ -12,6 +12,7 @@ chown -R influxdb:influxdb /data/influxdb
 mkdir /data/chronograf
 chown -R chronograf:chronograf /data/chronograf
 
+systemctl daemon-reload
 systemctl restart influxdb
 systemctl restart chronograf
 

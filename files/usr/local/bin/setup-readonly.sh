@@ -64,11 +64,7 @@ echo "Updating package index files..."
 apt-get update
  
 echo "Removing unwanted packages..."
-#apt-get remove -y --force-yes --purge triggerhappy cron logrotate dbus \
-# dphys-swapfile xserver-common lightdm fake-hwclock
-# Let's keep dbus...that includes avahi-daemon, a la 'raspberrypi.local',
-# also keeping xserver & lightdm for GUI login (WIP, not working yet)
-apt-get remove -y --force-yes --purge triggerhappy cron logrotate dphys-swapfile fake-hwclock
+apt-get remove -y --force-yes --purge triggerhappy logrotate dphys-swapfile fake-hwclock
 apt-get -y --force-yes autoremove --purge
  
 # Replace log management with busybox (use logread if needed)
