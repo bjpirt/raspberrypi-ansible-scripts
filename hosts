@@ -5,4 +5,4 @@
 # tycoch-logger.local eth0_ip=192.168.0.15
 
 [tycoch_combined]
-tycoch.local eth0_ip=192.168.0.10 logger_ip=127.0.0.1
+tycoch.local

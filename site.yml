@@ -32,6 +32,7 @@
   vars:
     hostname: tycoch
     logger_ip: localhost
+    eth0_ip: "192.168.0.10"
   roles:
     - base
     - static-ip-eth0
