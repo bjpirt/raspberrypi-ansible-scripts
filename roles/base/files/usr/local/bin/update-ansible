@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
@@ -13,8 +14,8 @@ if ( set -o noclobber; echo "$$" > "$lockfile") 2> /dev/null; then
   trap 'rm -f "$lockfile"; exit $?' INT TERM EXIT
   
   echo "================================" >> /var/log/ansible
-  sudo ansible-pull -f -o -C master -d /usr/local/tycoch/setup -i /usr/local/tycoch/setup/hosts -U https://github.com/bjpirt/tycoch-monitor-setup.git  &>> /var/log/ansible
-
+  sudo ansible-pull -f -o -C master -d /opt/ansible/ansible-setup -i /opt/ansible/hosts -U https://github.com/bjpirt/raspberrypi-ansible-scripts.git  &>> /var/log/ansible
+  
   # clean up after yourself, and release your trap
   rm -f "$lockfile"
   trap - INT TERM EXIT

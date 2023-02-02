@@ -41,7 +41,7 @@
     - mosquitto
     - tycoch-monitor
     - tycoch-logger
-    # - readonly
+    - readonly
 - hosts: home_server
   become: yes
   gather_facts: yes

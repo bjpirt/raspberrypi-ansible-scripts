@@ -2,7 +2,7 @@
 - name: Download ansible repo
   become: yes
   git:
-    repo: git@github.com:bjpirt/raspberrypi-ansible-scripts.git
+    repo: https://github.com/bjpirt/raspberrypi-ansible-scripts.git
     dest: /opt/ansible/ansible-setup
 
 - name: install update-ansible
@@ -17,6 +17,30 @@
   copy:
     src: opt/ansible/hosts
     dest: /opt/ansible/hosts
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install mount-rw-root
+  copy:
+    src: usr/local/bin/mount-rw-root
+    dest: /usr/local/bin/mount-rw-root
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install update-chroot
+  copy:
+    src: usr/local/bin/update-chroot
+    dest: /usr/local/bin/update-chroot
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create mount directory
+  ansible.builtin.file:
+    path: /mnt/rw-root
+    state: directory
     owner: root
     group: root
     mode: 0755
