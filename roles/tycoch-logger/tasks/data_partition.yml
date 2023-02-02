@@ -1,0 +1,25 @@
+---
+- name: Add partition script
+  copy:
+    src: usr/local/bin/add-partition.sh
+    dest: /usr/local/bin/add-partition.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Get partitions
+  shell: fdisk -l | grep /dev/mmc
+  register: partitions
+  become: true
+
+- name: Update the partitions
+  command: /usr/local/bin/add-partition.sh
+  when: "'mmcblk0p3' not in partitions.stdout"
+
+- name: Create /data directory
+  file:
+    path: /data
+    state: directory
+
+- name: add /data to fstab
+  lineinfile: dest=/etc/fstab state=present line="/dev/mmcblk0p3  /data           ext4    defaults,noatime  0       0"

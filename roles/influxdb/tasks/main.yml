@@ -1,0 +1,3 @@
+---
+- include: influx_apt.yml
+- include: influxdb.yml

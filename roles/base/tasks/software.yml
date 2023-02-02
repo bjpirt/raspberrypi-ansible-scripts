@@ -1,0 +1,22 @@
+---
+# Update apt
+- name: Update and upgrade apt packages
+  apt:
+    upgrade: safe
+    update_cache: yes
+    cache_valid_time: 3600
+
+# Install software required for all environments
+- name: Install basic software
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - vim
+      - tmux
+      - git
+      - python3-pip
+      - apt-transport-https
+      - ansible

@@ -1,0 +1,10 @@
+---
+- name: Change hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+
+- name: Update hosts
+  ansible.builtin.replace:
+    path: /etc/hosts
+    regexp: "raspberrypi"
+    replace: "{{ hostname }}"

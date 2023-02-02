@@ -1,0 +1,18 @@
+---
+- name: enable overlayfs
+  ansible.builtin.command: raspi-config nonint enable_overlayfs
+  args:
+    creates: "/boot/initrd.img*"
+
+- name: Check if /etc/fstab contains read only config
+  lineinfile:
+    path: /etc/fstab
+    regexp: "/boot           vfat    defaults,ro"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: readonly
+
+- name: enable read only /boot
+  command: raspi-config nonint enable_bootro
+  when: not readonly.found

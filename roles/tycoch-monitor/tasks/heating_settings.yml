@@ -1,0 +1,14 @@
+---
+- name: install systemd service for heating-settings
+  copy:
+    src: etc/systemd/system/heating-settings.service
+    dest: /etc/systemd/system/heating-settings.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: enable heating-settings autostart with systemd
+  systemd:
+    name: heating-settings
+    enabled: yes
+    masked: no

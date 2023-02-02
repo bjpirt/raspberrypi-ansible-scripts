@@ -1,11 +1,16 @@
-# tycoch-monitor-setup
-An Ansible playbook to set up a Raspberry Pi for my home monitoring system based around InfluxDB
+# Raspberry Pi Ansible Scripts
+
+An Ansible playbook to set up a Raspberry Pi
 
 # Getting Started
-Clone this repository somewhere. Run the bootstrap.sh script on the Pi. You can do this remotely by running:
+
+- Flash Raspbian to an SD card
+- Configure WiFi via the config file on /boot
+- Enable SSH via the config fle on /boot
+- Install Ansible locally
+
+Clone this repository somewhere. Run ansible with the hosts file configured to point at the system you want to configure:
 
 ```
-ssh pi@raspberrypi.local "sudo bash -s" < ./bootstrap.sh
+ansible-playbook -k -u pi -i hosts -l tycoch site.yml
 ```
-
-Or you can copy it to the Pi and run it from there.

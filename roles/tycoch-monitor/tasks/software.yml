@@ -1,0 +1,18 @@
+---
+- name: Install the tycoch software
+  git:
+    repo: "https://github.com/bjpirt/tycoch-software.git"
+    dest: /usr/local/tycoch/software
+    update: yes
+
+- name: Install pymodbus
+  pip:
+    name: pymodbus
+
+- name: Install paho-mqtt
+  pip:
+    name: paho-mqtt
+
+- name: Install requests
+  pip:
+    name: requests

@@ -1,0 +1,1 @@
+boot=overlay console=serial0,115200 console=tty1 {{ rootpart.stdout }} rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0

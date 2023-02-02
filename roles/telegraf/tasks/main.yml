@@ -1,0 +1,24 @@
+---
+- name: Import the influx key into apt
+  apt_key:
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    state: present
+
+- name: Add influx deb repository
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/debian bullseye stable"
+    filename: influxdb
+    state: present
+    update_cache: yes
+
+- name: Install Telegraf
+  apt:
+    name: telegraf
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Add telegraf user to dialout group
+  user:
+    name: telegraf
+    groups: dialout
+    append: yes

@@ -1,0 +1,33 @@
+---
+- name: Add bjpirt user
+  user:
+    name: bjpirt
+    groups: root,sudo,dialout
+    append: yes
+    generate_ssh_key: yes
+    password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    shell: /bin/bash
+
+- name: Change password for pi user
+  user:
+    name: pi
+    password: $6$tRtDhYwvnkL94Dg2$Gnpb69oM7XjtbUyuQ5hW48RBs2TOIwrZWXsUaxeIJ.xXlp86ecbSbmdmBWXQaINdz1Tt0cIVLHHHA/8.5oLTS/
+
+- name: Set authorized key for bjpirt
+  authorized_key:
+    user: bjpirt
+    state: present
+    key: "{{ lookup('file', 'id_rsa.bjpirt.pub') }}"
+# - name: Download dotfiles
+#   become: yes
+#   become_user: bjpirt
+#   git:
+#     repo: "https://github.com/bjpirt/dotfiles.git"
+#     dest: /home/bjpirt/dotfiles
+
+# - name: Install dotfiles
+#   become: yes
+#   become_user: bjpirt
+#   shell: cd /home/bjpirt/dotfiles && ./install

@@ -1,0 +1,6 @@
+---
+- include: software.yml
+- include: lighttpd.yml
+- include: heating_settings.yml
+- include: usb_serial.yml
+- include: telegraf_config.yml

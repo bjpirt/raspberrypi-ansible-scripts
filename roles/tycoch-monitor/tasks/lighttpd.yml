@@ -1,0 +1,14 @@
+---
+- name: Install lighttpd
+  apt:
+    name: lighttpd
+    state: present
+    update_cache: yes
+
+- name: install lighttpd.conf
+  copy:
+    src: etc/lighttpd/lighttpd.conf
+    dest: /etc/lighttpd/lighttpd.conf
+    owner: root
+    group: root
+    mode: 0644
