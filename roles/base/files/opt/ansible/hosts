@@ -1,0 +1,2 @@
+[tycoch_combined]
+localhost ansible_connection=local
