@@ -13,14 +13,6 @@
     group: root
     mode: 0755
 
-- name: install ansible hosts
-  copy:
-    src: opt/ansible/hosts
-    dest: /opt/ansible/hosts
-    owner: root
-    group: root
-    mode: 0644
-
 - name: install mount-rw-root
   copy:
     src: usr/local/bin/mount-rw-root

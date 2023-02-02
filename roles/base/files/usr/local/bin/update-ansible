@@ -7,14 +7,14 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-lockfile=/var/lock/update-tycoch
+lockfile=/var/lock/update-ansible
 
 if ( set -o noclobber; echo "$$" > "$lockfile") 2> /dev/null; then
 
   trap 'rm -f "$lockfile"; exit $?' INT TERM EXIT
   
   echo "================================" >> /var/log/ansible
-  sudo ansible-pull -f -o -C master -d /opt/ansible/ansible-setup -i /opt/ansible/hosts -U https://github.com/bjpirt/raspberrypi-ansible-scripts.git site.yml
+  sudo ansible-pull -f -o -C master -d /opt/ansible/ansible-setup -i /opt/ansible/hosts -e "ignore_readonly=true" -U https://github.com/bjpirt/raspberrypi-ansible-scripts.git site.yml
 
   # clean up after yourself, and release your trap
   rm -f "$lockfile"

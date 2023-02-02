@@ -1,32 +1,6 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: tycoch_monitor
-  become: yes
-  gather_facts: yes
-  vars:
-    hostname: tycoch-monitor
-  roles:
-    - base
-    - static-ip-eth0
-    - telegraf
-    - mosquitto
-    - tycoch-monitor
-    - rtc
-    - readonly
-- hosts: tycoch_logger
-  become: yes
-  gather_facts: yes
-  vars:
-    hostname: tycoch-logger
-  roles:
-    - base
-    - static-ip-eth0
-    - influxdb
-    - chronograf
-    - tycoch-logger
-    - rtc
-    - readonly
-- hosts: tycoch_combined
+- hosts: tycoch
   become: yes
   gather_facts: yes
   vars:
@@ -40,10 +14,9 @@
     - chronograf
     - telegraf
     - mosquitto
-    - tycoch-monitor
-    - tycoch-logger
-    - readonly
-- hosts: home_server
+    - tycoch
+    - { role: readonly, when: not ignore_readonly | bool }
+- hosts: homeserver
   become: yes
   gather_facts: yes
   vars:
@@ -54,4 +27,4 @@
     - chronograf
     - telegraf
     - mosquitto
-    - readonly
+    - { role: readonly, when: not ignore_readonly | bool }

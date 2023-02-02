@@ -1,0 +1,8 @@
+---
+- name: install ansible hosts
+  copy:
+    src: opt/ansible/hosts
+    dest: /opt/ansible/hosts
+    owner: root
+    group: root
+    mode: 0644

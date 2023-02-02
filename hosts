@@ -1,8 +1,2 @@
-# [tycoch_monitor]
-# tycoch-monitor.local eth0_ip=192.168.0.10 logger_ip=192.168.0.15
-
-# [tycoch_logger]
-# tycoch-logger.local eth0_ip=192.168.0.15
-
-[tycoch_combined]
+[tycoch]
 tycoch.local
