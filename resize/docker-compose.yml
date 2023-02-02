@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  resizer:
+    image: ubuntu
+    volumes:
+      - $PWD:/resize
+    command: sleep 99999999
+    cap_add:
+      - CAP_MKNOD
+    device_cgroup_rules:
+      - b 7:* rmw
+    privileged: true

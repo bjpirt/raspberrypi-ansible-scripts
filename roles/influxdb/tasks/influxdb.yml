@@ -1,0 +1,54 @@
+---
+- name: Install InfluxDB
+  apt:
+    name: influxdb
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install influxdb.conf
+  copy:
+    src: etc/influxdb/influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create influx systemd directory
+  file:
+    path: /etc/systemd/system/influxdb.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install influxdirs.conf
+  copy:
+    src: etc/systemd/system/influxdb.service.d/influxdirs.conf
+    dest: /etc/systemd/system/influxdb.service.d/influxdirs.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install influxdirs.sh
+  copy:
+    src: usr/local/bin/influxdirs.sh
+    dest: /usr/local/bin/influxdirs.sh
+    owner: root
+    group: staff
+    mode: 0755
+
+- name: install influx-schema.conf
+  copy:
+    src: etc/systemd/system/influxdb.service.d/influx-schema.conf
+    dest: /etc/systemd/system/influxdb.service.d/influx-schema.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install influx-schema.sh
+  copy:
+    src: usr/local/bin/influx-schema.sh
+    dest: /usr/local/bin/influx-schema.sh
+    owner: root
+    group: staff
+    mode: 0755

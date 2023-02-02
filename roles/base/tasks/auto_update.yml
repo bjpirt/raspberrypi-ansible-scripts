@@ -1,0 +1,22 @@
+---
+- name: Download ansible repo
+  become: yes
+  git:
+    repo: git@github.com:bjpirt/raspberrypi-ansible-scripts.git
+    dest: /opt/ansible/ansible-setup
+
+- name: install update-ansible
+  copy:
+    src: usr/local/bin/update-ansible
+    dest: /usr/local/bin/update-ansible
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install ansible hosts
+  copy:
+    src: opt/ansible/hosts
+    dest: /opt/ansible/hosts
+    owner: root
+    group: root
+    mode: 0755

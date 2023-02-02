@@ -1,0 +1,8 @@
+---
+- name: install telegraf.conf
+  ansible.builtin.template:
+    src: etc/telegraf/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: 0644

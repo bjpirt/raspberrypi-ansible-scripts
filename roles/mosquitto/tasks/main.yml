@@ -1,0 +1,36 @@
+---
+- name: Import the Mosquitto GPG key into apt
+  apt_key:
+    url: http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+    state: present
+
+- name: Add Mosquitto deb repository
+  apt_repository:
+    repo: "deb http://repo.mosquitto.org/debian buster main"
+    state: present
+
+- name: Install Mosquitto
+  apt:
+    name: mosquitto
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install Mosquitto Clients
+  apt:
+    name: mosquitto-clients
+    state: present
+    update_cache: yes
+
+- name: install mosquitto.conf
+  copy:
+    src: etc/mosquitto/mosquitto.conf
+    dest: /etc/mosquitto/mosquitto.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable mosquitto autostart with systemd
+  systemd:
+    name: mosquitto
+    enabled: yes
+    masked: no

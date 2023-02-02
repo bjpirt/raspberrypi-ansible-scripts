@@ -1,0 +1,110 @@
+---
+# Following instructions from https://yagrebu.net/unix/rpi-overlay.md
+
+- name: Remove software for readonly
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    purge: yes
+    update_cache: yes
+  vars:
+    packages:
+      - triggerhappy
+      - logrotate
+      - rsyslog
+
+- name: Install software for readonly
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - busybox-syslogd
+
+- name: install overctl
+  copy:
+    src: usr/local/sbin/overctl
+    dest: /usr/local/sbin/
+    owner: root
+    group: staff
+    mode: 0755
+
+- name: Get PARTUUID
+  command: grep -oP 'root=([^ ]*)' /boot/cmdline.txt
+  register: rootpart
+
+- name: install cmdline.txt.orig
+  ansible.builtin.template:
+    src: boot/cmdline.txt.orig
+    dest: /boot/cmdline.txt.orig
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install cmdline.txt.overlay
+  ansible.builtin.template:
+    src: boot/cmdline.txt.overlay
+    dest: /boot/cmdline.txt.overlay
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable overlay initramfs module
+  lineinfile:
+    dest: /etc/initramfs-tools/modules
+    state: present
+    line: overlay
+
+- name: install /etc/initramfs-tools/scripts/overlay
+  copy:
+    src: etc/initramfs-tools/scripts/overlay
+    dest: /etc/initramfs-tools/scripts/overlay
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Register uname value
+  command: uname -r
+  register: uname
+
+- name: Get stats about initramfs image
+  stat:
+    path: /boot/initrd.img-{{ uname.stdout }}
+  register: check
+
+- name: update initramfs image
+  command: update-initramfs -c -k {{ uname.stdout }}
+  when: check.stat.exists == False
+
+- name: Update config.txt
+  blockinfile:
+    path: /boot/config.txt
+    block: |
+      kernel=kernel7.img
+      initramfs initrd.img-{{ uname.stdout }}
+
+- name: Register status of overctl
+  command: "/usr/local/sbin/overctl --status"
+  register: overctl
+  ignore_errors: true
+
+- name: Set up readonly overlay file system
+  command: "/usr/local/sbin/overctl --ro"
+  when: overctl.stderr == "/ is currently mounted RW and will be mounted RW on next boot"
+
+- name: install ro
+  copy:
+    src: usr/local/bin/ro
+    dest: /usr/local/bin/
+    owner: root
+    group: staff
+    mode: 0755
+
+- name: install rw
+  copy:
+    src: usr/local/bin/rw
+    dest: /usr/local/bin/
+    owner: root
+    group: staff
+    mode: 0755

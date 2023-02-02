@@ -1,0 +1,8 @@
+---
+- name: install udev rules for USB serial
+  copy:
+    src: etc/udev/rules.d/99-usb-serial.rules
+    dest: /etc/udev/rules.d/99-usb-serial.rules
+    owner: root
+    group: root
+    mode: 0644

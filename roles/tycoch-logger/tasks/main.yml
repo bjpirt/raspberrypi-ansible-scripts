@@ -1,0 +1,8 @@
+---
+- name: install influx schema
+  copy:
+    src: opt/influx-schema.txt
+    dest: /opt/influx-schema.txt
+    owner: root
+    group: root
+    mode: 0644

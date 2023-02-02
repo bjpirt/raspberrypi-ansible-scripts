@@ -1,0 +1,12 @@
+---
+- name: Import the influx key into apt
+  apt_key:
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    state: present
+
+- name: Add influx deb repository
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/debian bullseye stable"
+    filename: influxdb
+    state: present
+    update_cache: yes

@@ -1,0 +1,24 @@
+---
+- name: Enable I2C
+  command: "raspi-config nonint do_i2c 0"
+  args:
+    creates: /sys/class/i2c-adapter/i2c-1
+
+- name: add ds1307 to /boot/config.txt
+  lineinfile: dest=/boot/config.txt state=present line="dtoverlay=i2c-rtc,ds1307"
+
+- name: Remove fake-hwclock
+  apt:
+    name: fake-hwclock
+    state: absent
+
+- name: Patch hwclock-set
+  patch:
+    src: hwclock.patch
+    dest: /lib/udev/hwclock-set
+
+- name: Install i2c-tools
+  apt:
+    name: i2c-tools
+    update_cache: yes
+    cache_valid_time: 3600
