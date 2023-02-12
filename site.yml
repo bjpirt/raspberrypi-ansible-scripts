@@ -15,7 +15,7 @@
     - telegraf
     - mosquitto
     - tycoch
-    - { role: readonly, when: not ignore_readonly | bool }
+    - { role: readonly, when: set_readonly | bool }
 - hosts: homeserver
   become: yes
   gather_facts: yes
@@ -27,4 +27,4 @@
     - chronograf
     - telegraf
     - mosquitto
-    - { role: readonly, when: not ignore_readonly | bool }
+    - { role: readonly, when: set_readonly | bool }

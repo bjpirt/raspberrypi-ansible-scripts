@@ -1,5 +1,5 @@
 ---
-- include: software.yml
+- include: general.yml
 - include: lighttpd.yml
 - include: heating_settings.yml
 - include: usb_serial.yml

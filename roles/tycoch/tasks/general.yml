@@ -1,0 +1,32 @@
+---
+- name: Install the tycoch software
+  git:
+    repo: "https://github.com/bjpirt/tycoch-software.git"
+    dest: /usr/local/tycoch/software
+    update: yes
+
+- name: Install pymodbus
+  pip:
+    name: pymodbus
+
+- name: Install pyserial
+  pip:
+    name: pyserial
+
+- name: Install dateutil
+  pip:
+    name: python-dateutil
+
+- name: Install paho-mqtt
+  pip:
+    name: paho-mqtt
+
+- name: Add sync data to cron
+  ansible.builtin.cron:
+    name: sync data
+    weekday: "*"
+    minute: "*"
+    hour: "*"
+    user: root
+    job: "python3 /usr/local/tycoch/software/bin/sync-data.py /boot/sync-data.conf.json"
+    cron_file: sync-data
